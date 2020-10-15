@@ -1,22 +1,19 @@
 <template>
   <div id="app">
+    <translate pid='test'></translate>
   </div>
 </template>
 
 <script>
 
+
 export default {
   name: 'App',
+ 
+  created() {
+    this.$setStringData({string_id:'test', string: 'Here it is...'});
+    console.log(this.$stringData);
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
