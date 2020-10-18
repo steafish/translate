@@ -2,23 +2,36 @@
 
 ## Project setup
 ```
-npm install
+npm install npm install vue-translate
 ```
 
-### Compiles and hot-reloads for development
+## Use it in your project
+In your main.js
 ```
-npm run serve
+import translate from 'vue-translate'
+
+vue.use(translate)
 ```
 
-### Compiles and minifies for production
+In your vue-file:
+html:
+<translate cid="optional-category" sid="string-id-for-your-string"></translate>
+
+The cid-attribute is a optional
+
+
+In your App.vue:
 ```
-npm run build
+this.$setLanguage('en');
+this.$setAdmin(false);
+const stringArray =[
+    {string_id:'string-id-for-your-string', category_id: 'front_page', string: 'Here it is...'}
+    ];
+this.$setStringData(stringArray);
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+The setLanguage will set the language for all translate-tags.
+The setStringData will set the current strings that should be used by the translate-tags. 
+Both string_id and string are mandantory.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The setAdmin will make all of your translate-tags editable. Pressing ok after editing in the current language will send an event 'string_updated'. It will carry payload representing one translated line of the stringData.
