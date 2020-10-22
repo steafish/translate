@@ -2,7 +2,7 @@
   "name": "vue-steafish",
   "version": "0.1.1",
   "main": "index.js",
-  "description": "This is a translation plugin. Remember to set the string-data. Please see documentation",
+  "description": "Use a json-array for your translation-objects, and refer to the string-ids in this translate-tag. Remember to set the string-json-data-array in your module. Please see documentation in the repository",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
