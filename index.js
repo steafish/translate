@@ -1,16 +1,16 @@
-import translate from '@/components/Translate.vue'
+import translate from './Translate.vue';
 
-const VueTranslate = {
+const VueSteafish = {
   install(Vue) {
         // Add $plugin instance method directly to Vue components
         Vue.prototype.$setStringData = (stringData) => {
-            Vue.prototype.$stringData = stringData
+            Vue.prototype.$stringData = stringData;
         }
         Vue.prototype.$setLanguage = (language_id) => {
-            Vue.prototype.$language_id = language_id
+            Vue.prototype.$language_id = language_id;
         }
         Vue.prototype.$setAdmin = (admin) => {
-            Vue.prototype.$admin = admin
+            Vue.prototype.$admin = admin;
         }
         Vue.component('translate', translate)
         Vue.mixin({
@@ -31,8 +31,8 @@ const VueTranslate = {
 
 // Automatic installation if Vue has been added to the global scope.
 if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(VueTranslate);
+    window.Vue.use(VueSteafish);
 }
 
-export default VueTranslate;
+export default VueSteafish;
 export { translate };

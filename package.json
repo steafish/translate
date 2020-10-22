@@ -1,55 +1,15 @@
 {
-  "name": "@steafish/vue-translate",
+  "name": "vue-steafish",
   "version": "0.1.0",
+  "main": "index.js",
+  "description": "This is a translation plugin. Remember to set the string-data. Please see documentation",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name translate ./src/components/index.js",
-    "lint": "vue-cli-service lint"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "core-js": "^3.6.5",
-    "sass": "^1.26.11",
-    "sass-loader": "^10.0.2",
-    "vue": "^2.6.11"
+  "author": "Steafish",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://https://github.com/steafish/translate/issues"
   },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-vuex": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/eslint-config-standard": "^5.1.2",
-    "babel-eslint": "^10.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/standard"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ],
-  "files": [
-    "dist/*",
-    "src/*",
-    "public/*",
-    "*.json",
-    "*.js"
-  ],
-  "main": "./dist/translate.common.js"
+  "homepage": "https://github.com/steafish/translate"
 }

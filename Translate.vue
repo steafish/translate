@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div v-if="!admin">{{ string }}</div>
