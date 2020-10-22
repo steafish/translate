@@ -1,6 +1,6 @@
 {
   "name": "vue-steafish",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "description": "This is a translation plugin. Remember to set the string-data. Please see documentation",
   "scripts": {
