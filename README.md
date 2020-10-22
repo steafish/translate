@@ -2,13 +2,13 @@
 
 ## Project setup
 ```
-npm install npm install vue-translate
+npm install vue-steafish
 ```
 
 ## Use it in your project
 In your main.js
 ```
-import translate from 'vue-translate'
+import translate from 'vue-steafish'
 
 vue.use(translate)
 ```
@@ -17,7 +17,7 @@ In your vue-file:
 html:
 <translate cid="optional-category" sid="string-id-for-your-string"></translate>
 
-The cid-attribute is a optional
+(the cid-attribute is a optional).
 
 
 In your App.vue:
@@ -25,7 +25,7 @@ In your App.vue:
 this.$setLanguage('en');
 this.$setAdmin(false);
 const stringArray =[
-    {string_id:'string-id-for-your-string', category_id: 'front_page', string: 'Here it is...'}
+    {string_id:'string-id-for-your-string', category_id: 'front_page', string: 'Here it is...', language_id:'en'}
     ];
 this.$setStringData(stringArray);
 ```
