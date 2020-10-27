@@ -1,9 +1,10 @@
 
 <template>
   <div>
-    <div v-if="!admin">{{ string }}</div>
-    <div v-else :title="enString">
-        <input type='text' :placeholder="enString" :value="editValue">
+    <div v-if="string">{{ string }}</div>
+    <div v-else><slot/></div>
+    <div v-if="admin" :title="enString">
+        <input type='text' :placeholder="getSourceString()" :value="editString">
         <button @click="updateString()">ok</button>
     </div>
   </div>  
@@ -19,46 +20,38 @@ export default {
       required: false
     }
   },
-  data () {
+  data: function () {
     return {
-        editValue : null,
-        enString : null,
-        admin:this.$admin
-        }
-  },
+        editString:null,
+        admin:false,
+    }
+  },  
   mounted(){
-        if(this.admin){
-            console.log('admin')
-            const stringObj = this.$stringData.find(
-                (o) => o.string_id === this.sid && (o.category_id=== this.cid || this.cid==null ) && (o.language_id === 'en')
-            )
-            if (stringObj != null) {
-                this.enString = stringObj.string
-            }   
-        }
+      this.admin = this.$admin;
   },
   computed: {
     string () {
-      
-      let string = this.sid
-      if (this.$stringData != null && this.sid != null) {
-        const stringObj = this.$stringData.find(
-          (o) => o.string_id === this.sid && (o.category_id=== this.cid || this.cid==null ) && (o.language_id === this.$language_id)
-        )
-        if (stringObj != null) {
-          string = stringObj.string
-        }else{
-            console.log('String not found');
-        }
-        
+      let string = this.$getString(this.sid, this.cid, this.$getLanguage());
+      if(!string && this.$slots.default && this.$slots.default.length > 0){
+        string = this.$slots.default[0].text;
       }
+     
+      this.$setString(string, this.sid, this.cid, this.$getLanguage());
+  
       return string
-    }
+    },
+    
   },
   methods: {
      updateString(){
-         this.$emit('string_updated',{string_id: this.sid, category_id: this.cid, language_id: this.$language_id})
-     }
+         this.$setString(this.editString, this.sid, this.cid,this.$language_id);
+     },
+     getSourceString(){
+       if(this.$admin){
+          this.sourceString=this.$getString(this.sid, this.cid,this.$getSourceLanguage());
+       }
+       return this.sourceString;
+    }
   }
 }
 </script>
