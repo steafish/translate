@@ -163,8 +163,53 @@ methods: {
 ## In your components
 
 Use the tag <translation></translate> in your components in the follwing way:
-html:
+```
+<template>
+...
 <translate cid="optional-category" sid="string-id-for-your-string">String that will be visible</translate>
-
+...
+</template>
+```
 (the cid-attribute is a optional).
 
+## Special cases
+
+In somecases you would have a sting that looks like this
+```
+"In many places January is {summer_or_winter}"
+```
+
+Using the tag above will not do a correct translation. Do the following:
+
+```
+<template>
+    <div>{{this.placesInJanuary()}}</div>
+</template>
+<script>
+...
+
+computed(){
+    placesInJanuary(){
+        const string = this.$getString('string-id-for-your-string', 'optional-category', this.$getLanguage());
+        const summer = this.$getString('string-id-for-summer', null, this.$getLanguage());
+        const winter = this.$getString('string-id-for-winter', null, this.$getLanguage());
+        if(southernHemisphere(this.$getLanguage()))
+            return string.replace('{summer_or_winter}',summer);
+        else{
+            return string.replace('{summer_or_winter}',winter);
+        }    
+    }    
+}
+</script>
+```
+So what happened here was that instead of using the translate-tag, a ordinary div was used. The content of the div refers to a computed variable that will compute the value of the string. It retreives the translation of string "In many places January is {summer_or_winter}", and the translation for both summer and winter. Depending upon if the language stems from countries at the southers hemisphere or not, the translated string is returned, where the correct season is returned. 
+
+From the above we can conclude that there is a good idea to use a language-code that includes the country-code, like this:
+```
+    language = languageCode + '-' + countryCode;
+```
+
+## Exporting the string-data from firebase to the asset-file
+
+While developing your database will contain all of your strings. Before building for deployment, you will ned to remove the firebase-statements from the vue-steafish uses-statement. In addition you will ned to export the data into the file that needs to be added to assets in your project. Please read more about the export here:
+https://firebase.google.com/docs/firestore/manage-data/export-import?hl=en&authuser=0
