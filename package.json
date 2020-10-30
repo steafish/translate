@@ -1,15 +1,13 @@
 {
   "name": "vue-steafish",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "index.js",
   "description": "Use a json-array for your translation-objects, and refer to the string-ids in this translate-tag. Remember to set the string-json-data-array in your module. Please see documentation in the repository",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Steafish",
   "license": "MIT",
   "bugs": {
     "url": "https://https://github.com/steafish/translate/issues"
   },
-  "homepage": "https://github.com/steafish/translate"
+  "homepage": "https://github.com/steafish/translate",
+  "keywords" : ["vue", "vuejs", "translate", "vue-translate", "vuetranslate", "locales", "i18n", "npm", "steafish", "vue-steafish"]
 }
