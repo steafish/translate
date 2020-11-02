@@ -180,6 +180,22 @@ Use the tag <translation></translate> in your components in the follwing way:
 ```
 (the cid-attribute is a optional).
 
+## What attributes do I need?
+
+If you do not use any parameters like the following:
+```
+<translate>I really like Vue</translate>
+```
+The string will still show, but it will not find its way into your storage. You are required to add the sid like the following:
+ ```
+<translate sid="i_like_vue">I really like Vue</translate>
+```
+However to collect your strings into a group, you should use category_id. The collection could be a modal, a component, view or a route. You are the best to say what strings that belongs together. However, context is an important factor when talking about translations. 
+
+One word could mean different things in different context. That is why you should group your strings accoring to its context. A context could be hierarchical, and that is a good reason for creating a naming-standard for your string-ids and category-ids. A category could be customer-configuration, then the strings belonging to that category is in the same context. 
+
+When translators understands the context there is a very high propability that the translation will be correct according to the context. Then it becomes important for you to make it easy to understand the context. This is why there should be a one-to-one between context and a visible view to the user. Then there should be a one-to-one-relationship between you vue-route and your context.
+
 ## Special cases
 
 In somecases you would have a sting that looks like this
@@ -221,7 +237,7 @@ From the above we can conclude that there is a good idea to use a language-code 
 
 While developing your database will contain all of your strings. Before building for deployment, you will ned to remove the firebase-statements from the vue-steafish uses-statement. In addition you will ned to export the data into the file that needs to be added to assets in your project. 
 
-Here is some example code that you can use for exporting data:
+Here is some example nodejs code that you can use for exporting data:
 ```
 async function dumpData(filename) {
     const serviceAccount = require("./serviceAccountKey.json");
@@ -250,6 +266,8 @@ async function dumpData(filename) {
 
 dumpData('stringdata.json');
 ```
+You can generate your serviceAccountKey.json at your firebase-account. 
+
 
 # Start translating your application
 
