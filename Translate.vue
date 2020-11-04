@@ -1,13 +1,13 @@
 
 <template>
-  <div>
-    <div v-if="string">{{ string }}</div>
-    <div v-else><slot/></div>
-    <div v-if="admin" :title="enString">
+  <div class="translate">
+    <span v-if="string">{{ string }}</span>
+    <span v-else><slot/></span>
+    <span v-if="admin" :title="enString">
         <input type='text' :placeholder="getSourceString()" :value="editString">
         <button @click="updateString()">ok</button>
-    </div>
-  </div>  
+    </span>
+  </div> 
 </template>
 <script>
 export default {
@@ -55,3 +55,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+   .translate {
+     display: inline-block;
+   }
+</style>
