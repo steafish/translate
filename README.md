@@ -1,6 +1,6 @@
 # vue-steafish
 
-This is a simple plugin that will enable your application having translated text in your application. It will also make it simple to do translation of the texts to other languages.
+This is a simple plugin that will enable your application having in-context translated text in your application. It will also make it simple to do translation of the texts to other languages.
 
 There are some basic options that you need to be aware of before starting to use this component. 
 
@@ -98,41 +98,23 @@ Vue.use(VueTranslate,{
     return string;
    },
   setString: (string, string_id, category_id, language_id) => { 
-    let stringTable = null;
-    if(category_id){
-      stringTable = db.collection("steafish_string_table")
-      .where("category_id", "==", category_id)
-      .where("string_id", "==", string_id)
-      .where("language_id", "==", language_id)
-    }else{
-      stringTable = db.collection("steafish_string_table")
-      .where("string_id", "==", string_id)
-      .where("language_id", "==", language_id)
-    }
-    stringTable.get()
-    .then((querySnapshot) => {
-      if (querySnapshot.size === 0) {
-        let stringObj=null;
+      if(string && string_id){
+          let stringObj = {
+              "string_id" : string_id, 
+              "language_id": language_id,
+              "string" : string
+          };
         
-        if(category_id){
-          stringObj = {
-            "string_id" : string_id, 
-            "category_id":category_id, 
-            "language_id": language_id,
-            "string" : string};
-        }else{
-          stringObj = {
-            "string_id" : string_id, 
-            "language_id": language_id,
-            "string" : string};
-        }
-        
-        db.collection("steafish_string_table").add(stringObj).then(() => 
-        { 
-          console.log('Added string: ',stringObj);
-        });
-      }
-    });
+          if(category_id){
+            stringObj.category_id = category_id;
+          }  
+    
+          db.collection("steafish_string_table").doc(string_id).set(stringObj).then(() => {
+            console.log("String-id: "+string_id+" successfully written!");
+          }).catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+      }    
   },
   getSourceLanguage:() => {
     return 'en';
