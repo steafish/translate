@@ -15,8 +15,8 @@ const VueSteafish = {
         Vue.prototype.$setSourceLanguage = (sourceLanguage_id) => {
             Vue.prototype.$sourceLanguage_id=sourceLanguage_id;
         };
-        Vue.prototype.$getString = (string_id, category_id, language_id) => {
-            return options.getString(string_id, category_id, language_id);
+        Vue.prototype.$getString = (string_id, language_id, category_id) => {
+            return options.getString(string_id, language_id, category_id);
         };    
         Vue.prototype.$setString = (string, string_id, category_id, language_id) => {
             options.setString(string, string_id, category_id, language_id);
