@@ -196,9 +196,9 @@ Using the tag above will not do a correct translation. Do the following:
 
 computed(){
     placesInJanuary(){
-        const string = this.$getString('string-id-for-your-string', 'optional-category', this.$getLanguage());
-        const summer = this.$getString('string-id-for-summer', null, this.$getLanguage());
-        const winter = this.$getString('string-id-for-winter', null, this.$getLanguage());
+        const string = this.$getMessage('In many places January is {summer_or_winter}', 'string-id-for-your-string', 'optional-category', this.$getLanguage());
+        const summer = this.$getMessage('summer', 'string-id-for-summer', null, this.$getLanguage());
+        const winter = this.$getMessage('winter', 'string-id-for-winter', null, this.$getLanguage());
         if(southernHemisphere(this.$getLanguage()))
             return string.replace('{summer_or_winter}',summer);
         else{
@@ -208,7 +208,7 @@ computed(){
 }
 </script>
 ```
-So what happened here was that instead of using the translate-tag, a ordinary div was used. The content of the div refers to a computed variable that will compute the value of the string. It retreives the translation of string "In many places January is {summer_or_winter}", and the translation for both summer and winter. Depending upon if the language stems from countries at the southers hemisphere or not, the translated string is returned, where the correct season is returned. 
+In some cases the translate tag cannot be used. In these cases we can use a computed variable or use the this.$getMessage(...) directly. The this.$getMessage(...) string "In many places January is {summer_or_winter}". In return it will give the translated string if that exsists. We do the same for the translation for both summer and winter. Depending upon if the language stems from countries at the southers hemisphere or not, the translated string is returned, where the correct season is returned. 
 
 From the above we can conclude that there is a good idea to use a language-code that includes the country-code, like this:
 ```

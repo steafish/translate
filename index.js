@@ -15,8 +15,8 @@ const VueSteafish = {
         Vue.prototype.$setSourceLanguage = (sourceLanguage_id) => {
             Vue.prototype.$sourceLanguage_id=sourceLanguage_id;
         };
-        Vue.prototype.$getString = (string_id, language_id, category_id) => {
-            return options.getString(string_id, language_id, category_id);
+        Vue.prototype.$getString = (string_id, category_id, language_id) => {
+            return options.getString(string_id, category_id, language_id);
         };    
         Vue.prototype.$setString = (string, string_id, category_id, language_id) => {
             options.setString(string, string_id, category_id, language_id);
@@ -30,7 +30,10 @@ const VueSteafish = {
         Vue.prototype.$getSourceLanguage = () => {
             return Vue.prototype.$sourceLanguage_id=options.getSourceLanguage();
         };
-
+        Vue.prototype.$getMessage = (string, string_id, language_id, category_id) => {
+            options.setString(string, string_id, category_id, language_id);
+            return string
+        };
         Vue.component("translate", translate);
     },
 };
