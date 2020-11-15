@@ -18,8 +18,8 @@ const VueSteafish = {
         Vue.prototype.$getString = (string_id, category_id, language_id) => {
             return options.getString(string_id, category_id, language_id);
         };    
-        Vue.prototype.$setString = (string, string_id, category_id, language_id) => {
-            options.setString(string, string_id, category_id, language_id);
+        Vue.prototype.$setString = (string, string_id, category_id, language_id, parent) => {
+            options.setString(string, string_id, category_id, language_id, parent);
         };
         Vue.prototype.$getLanguage = () => {
             if(Vue.prototype.$language_id==null){
@@ -32,7 +32,7 @@ const VueSteafish = {
         };
         Vue.prototype.$getMessage = (string, string_id, language_id, category_id) => {
             options.setString(string, string_id, category_id, language_id);
-            return string
+            return string;
         };
         Vue.component("translate", translate);
     },

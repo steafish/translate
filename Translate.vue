@@ -24,10 +24,14 @@ export default {
     return {
         editString:null,
         admin:false,
+        parent : '',
     }
   },  
   mounted(){
-      this.admin = this.$admin;
+      this.admin = this.$admin;    
+      if(this.$parent && this.$parent.$vnode && this.$parent.$vnode.tag){
+          this.parent=this.$parent.$vnode.tag;
+      }
   },
   computed: {
     string () {
@@ -36,7 +40,7 @@ export default {
         string = this.$slots.default[0].text;
       }
      
-      this.$setString(string, this.sid, this.cid, this.$getLanguage());
+      this.$setString(string, this.sid, this.cid, this.$getLanguage(), this.parent); 
   
       return string
     },

@@ -7,7 +7,7 @@ There are some basic options that you need to be aware of before starting to use
 It has the following uses:
 1. Use it as it was a ordinary div
 2. Make use of the array-container 
-3. Use a database for your translations
+3. Use your server/database for your translations
 
 The options will be exlained in more detailed below. First of all you should do some basic tests before using it in your application
 
@@ -30,8 +30,7 @@ import translate from 'vue-steafish'
 
 vue.use(translate, { .....})
 ```
-### Additional configuration
-
+## Additional configuration 
 In order to get string-data to be available to the translate-tags, you will need to provide it. You can do this by importing it into your application, use vuex or use a database. One option does not exclude the second, since to can populate the database and then export your data into the string-data-file. 
 
 If you like you can skip the additional configuration, and save that work for later.
@@ -47,6 +46,77 @@ The file has the following format:
 ```
 [{"string_id":"string-id-for-your-string", "category_id": "front_page_of_app", "string": "Here it is...", "language_id": "en"}]
 ```
+
+### Configuration (Axios)
+
+
+In addition or instead of the import-strings-data-method, you can select to use a database. The setup is very simple. All you need is to do is to do is to tell vue-steafish about the database.
+
+In your main.js you will have defined the installed the database and configured the database in main.js:
+```
+import VueTranslate from 'vue-steafish'
+import stringData from '@/assets/stringdata.json'
+
+
+
+
+firebase.initializeApp(firebaseConfig)
+
+export const db = firebase.firestore()
+const auth = firebase.auth()
+const currentUser = auth.currentUser
+
+// date issue fix according to firebase
+const settings = {
+    //...
+}
+db.settings(settings)
+
+Vue.use(VueTranslate,{
+  getString: (string_id, category_id, language_id) =>
+   { 
+    let string=null;
+    if (stringData != null && string_id != null) {
+      const stringObj = stringData.find(
+        (o) => o.string_id === string_id && (o.category_id=== category_id || category_id==null ) && (o.language_id === language_id)
+      )
+      if (stringObj != null) {
+        string = stringObj.string
+      }
+    }
+    return string;
+   },
+  setString: (string, string_id, category_id, language_id) => { 
+      if(string && string_id){
+          let stringObj = {
+              "string_id" : string_id, 
+              "language_id": language_id,
+              "string" : string
+          };
+        
+          if(category_id){
+            stringObj.category_id = category_id;
+          }  
+    
+          axios.post('url-to-your-server', stringObj)
+               .then(response => {
+                  console.log(response);
+               }).catch(error => {
+                  console.log(error)
+               });
+      }    
+  },
+  getSourceLanguage:() => {
+    return 'en';
+  },
+  getLanguage:() => {
+    return 'en';
+  },
+});
+```
+
+### Configuration (Firefox)
+
 
 In addition or instead of the import-strings-data-method, you can select to use a database. The setup is very simple. All you need is to do is to do is to tell vue-steafish about the database.
 
@@ -125,8 +195,6 @@ Vue.use(VueTranslate,{
 });
 ```
 Remember to give read/write-access to the firebase-database-table 
-
-In the above example, getString() is reading from an array, and writing new strings to the database. You can choose to read/write to vuex if you like.
 
 ## Setting the language
 
