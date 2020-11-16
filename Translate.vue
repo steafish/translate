@@ -39,8 +39,22 @@ export default {
       if(!string && this.$slots.default && this.$slots.default.length > 0){
         string = this.$slots.default[0].text;
       }
+
+      if(!this.cid){
+        if(this.parent){
+           this.cid = this.parent;
+        }else{
+           this.cid = '';
+        }   
+      }
+
+      const language = this.$getLanguage()??this.$getSourceLanguage();
+
+      console.log('Language ',language);
+      console.log('cid ',this.cid);
+      console.log('Parent ',this.parent);
      
-      this.$setString(string, this.sid, this.cid, this.$getLanguage(), this.parent); 
+      this.$setString(string, this.sid, this.cid, language, this.parent); 
   
       return string
     },

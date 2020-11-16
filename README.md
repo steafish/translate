@@ -2,16 +2,22 @@
 
 This is a simple plugin that will enable your application having in-context translated text in your application. It will also make it simple to do translation of the texts to other languages.
 
-There are some basic options that you need to be aware of before starting to use this component. 
+#How does it work?
 
-It has the following uses:
-1. Use it as it was a ordinary div
-2. Make use of the array-container 
-3. Use your server/database for your translations
+## In production
 
-The options will be exlained in more detailed below. First of all you should do some basic tests before using it in your application
+With a import-statement you can get all of your translations into memory while running in production environment. If you do not like that you can read it from Firebase or your own server. You decide the location of your strings.
 
-## Project setup
+## While developing
+
+1. Use it as it was a ordinary span-tag. It does not have any styling. This means that you are in control of the styling.  
+3. Use your server/database for your translations. In the setup you decide where the strings should be recorded. You write the strings in program-code, and your strings will be recorded in the way you specify. Note that the strings will be recorded in the language you specify. This will be your source language
+4. When you are ready, you can translate your strings in your application, just by setting two variables, all of your strings are editable in the language you require
+
+
+The setup options will be exlained in more detailed below. First of all you should do some basic tests before using it in your application
+
+# Project setup
 
 Install the component using npm or using your gui. Here is how you would do it using npm:
 ```
@@ -167,7 +173,7 @@ Vue.use(VueTranslate,{
     }
     return string;
    },
-  setString: (string, string_id, category_id, language_id) => { 
+  setString: (string, string_id, category_id, language_id, context) => { 
       if(string && string_id){
           let stringObj = {
               "string_id" : string_id, 
@@ -176,8 +182,12 @@ Vue.use(VueTranslate,{
           };
         
           if(category_id){
-            stringObj.category_id = category_id;
+              stringObj.category_id = category_id;
           }  
+
+          if(context){
+              stringObj.context = context;
+          }
     
           db.collection("steafish_string_table").doc(string_id).set(stringObj).then(() => {
             console.log("String-id: "+string_id+" successfully written!");
