@@ -32,6 +32,8 @@ export default {
       if(this.$parent && this.$parent.$vnode && this.$parent.$vnode.tag){
           this.parent=this.$parent.$vnode.tag;
       }
+      
+     
   },
   computed: {
     string () {
@@ -48,13 +50,9 @@ export default {
         }   
       }
 
-      const language = this.$getLanguage()??this.$getSourceLanguage();
-
-      console.log('Language ',language);
-      console.log('cid ',this.cid);
-      console.log('Parent ',this.parent);
+      const language_id = this.$getLanguage()??this.$getSourceLanguage();
      
-      this.$setString(string, this.sid, this.cid, language, this.parent); 
+      this.$setString(string, this.sid, this.cid, language_id, this.parent); 
   
       return string
     },

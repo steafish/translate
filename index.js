@@ -31,7 +31,14 @@ const VueSteafish = {
             return Vue.prototype.$sourceLanguage_id=options.getSourceLanguage();
         };
         Vue.prototype.$getMessage = (string, string_id, language_id, category_id) => {
-            options.setString(string, string_id, category_id, language_id);
+            if(string!=null && string_id!=null && language_id!=null){
+                const lookUpString = options.getString(string, string_id, category_id, language_id);
+                if(lookUpString===null){
+                   options.setString(string, string_id, category_id, language_id);
+                }
+            }else{
+                console.log('Steafish error! String_id: '+string_id+' Must have string_id, string and language_id');
+            }
             return string;
         };
         Vue.component("translate", translate);

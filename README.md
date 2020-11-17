@@ -275,8 +275,8 @@ Using the tag above will not do a correct translation. Do the following:
 computed(){
     placesInJanuary(){
         const string = this.$getMessage('In many places January is {summer_or_winter}', 'string-id-for-your-string', 'optional-category', this.$getLanguage());
-        const summer = this.$getMessage('summer', 'string-id-for-summer', null, this.$getLanguage());
-        const winter = this.$getMessage('winter', 'string-id-for-winter', null, this.$getLanguage());
+        const summer = this.$getMessage('summer', 'string-id-for-summer', this.$getLanguage());
+        const winter = this.$getMessage('winter', 'string-id-for-winter', this.$getLanguage());
         if(southernHemisphere(this.$getLanguage()))
             return string.replace('{summer_or_winter}',summer);
         else{
