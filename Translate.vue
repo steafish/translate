@@ -31,9 +31,7 @@ export default {
       this.admin = this.$admin;    
       if(this.$parent && this.$parent.$vnode && this.$parent.$vnode.tag){
           this.parent=this.$parent.$vnode.tag;
-      }
-      
-     
+      }     
   },
   computed: {
     string () {
@@ -42,17 +40,11 @@ export default {
         string = this.$slots.default[0].text;
       }
 
-      if(!this.cid){
-        if(this.parent){
-           this.cid = this.parent;
-        }else{
-           this.cid = '';
-        }   
-      }
+      
 
       const language_id = this.$getLanguage()??this.$getSourceLanguage();
      
-      this.$setString(string, this.sid, this.cid, language_id, this.parent); 
+      this.$setString(string, this.sid, this.cid??this.parent, language_id, this.parent); 
   
       return string
     },
