@@ -317,7 +317,7 @@ async function dumpData(filename) {
     });
 
    
-    fs.writeFile(filename, stringArray, function (err) {
+    fs.writeFile(filename,  JSON.stringify(stringArray), function (err) {
         if (err) {
             console.log(err);
         }else{  
