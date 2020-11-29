@@ -31,7 +31,8 @@ export default {
       this.admin = this.$admin;    
       if(this.$parent && this.$parent.$vnode && this.$parent.$vnode.tag){
           this.parent=this.$parent.$vnode.tag;
-      }     
+      }
+         
   },
   computed: {
     string () {
@@ -44,7 +45,7 @@ export default {
 
       const language_id = this.$getLanguage()??this.$getSourceLanguage();
      
-      this.$setString(string, this.sid, this.cid??this.parent, language_id, this.parent); 
+      this.$setString(string, this.sid, this.cid??this.parent, language_id, window.location.pathname); 
   
       return string
     },
