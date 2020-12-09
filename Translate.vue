@@ -1,6 +1,6 @@
 
 <template>
-  <div class="translate">
+  <div v-bind:class="{ selected: this.$route.query.sid==this.sid }" class="translate">
     <span v-if="string">{{ string }}</span>
     <span v-else><slot/></span>
     <span v-if="admin" :title="enString">
@@ -67,5 +67,8 @@ export default {
 <style scoped>
    .translate {
      display: inline-block;
+   }
+   .selected {
+     border: 5px solid rgb(232, 239, 6);
    }
 </style>
