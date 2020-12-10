@@ -1,6 +1,6 @@
 
 <template>
-  <div v-bind:class="{ selected: this.$route.query.sid==this.sid }" class="translate">
+  <div v-bind:class="{ selected: highlightString }" class="translate">
     <span v-if="string">{{ string }}</span>
     <span v-else><slot/></span>
     <span v-if="admin" :title="enString">
@@ -49,7 +49,12 @@ export default {
   
       return string
     },
-    
+    highlightString(){
+      if(this.$route){
+        return this.$route.query.sid==this.sid;
+      }else{
+        return false;
+      }
   },
   methods: {
      updateString(){
