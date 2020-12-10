@@ -41,8 +41,6 @@ export default {
         string = this.$slots.default[0].text;
       }
 
-      
-
       const language_id = this.$getLanguage()??this.$getSourceLanguage();
      
       this.$setString(string, this.sid, this.cid??this.parent, language_id, window.location.pathname); 
@@ -53,10 +51,11 @@ export default {
       if(this.$route && this.$route.query && this.$route.query.sid){
         console.log('Query-string: ',this.$route.query.sid);
         console.log('Current string_id',this.sid);
-        return this.$route.query.sid==this.sid;
+        return this.$route.query.sid == this.sid;
       }else{
         return false;
       }
+    }  
   },
   methods: {
      updateString(){
