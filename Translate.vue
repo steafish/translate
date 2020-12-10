@@ -50,7 +50,9 @@ export default {
       return string
     },
     highlightString(){
-      if(this.$route){
+      if(this.$route && this.$route.query && this.$route.query.sid){
+        console.log('Query-string: ',this.$route.query.sid);
+        console.log('Current string_id',this.sid);
         return this.$route.query.sid==this.sid;
       }else{
         return false;
