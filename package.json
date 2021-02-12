@@ -1,6 +1,6 @@
 {
   "name": "vue-steafish",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "main": "index.js",
   "description": "Use a json-array for your translation-objects, and refer to the string-ids in this translate-tag. Remember to set the string-json-data-array in your module. Please see documentation in the repository",
   "author": "Steafish",

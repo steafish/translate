@@ -43,7 +43,7 @@ export default {
 
       const language_id = this.$getLanguage()??this.$getSourceLanguage();
      
-      this.$setString(string, this.sid, this.cid??this.parent, language_id, window.location.pathname); 
+      this.$setString(string, this.sid, this.cid??this.parent, language_id, window.location.href); 
   
       return string
     },

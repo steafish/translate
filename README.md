@@ -313,20 +313,19 @@ async function dumpData(filename) {
     const snapshot = await db.collection('steafish_string_table').get();
     snapshot.forEach((doc) => {
         const row = doc.data();
-        stringArray.push({"string_id" : row.string_id, "string" : row.string, 'category_id' : row.category_id, "language_id" : row.language_id});
+        //console.log(row.string_id+' '+row.string);
+        stringArray.push({"string_id" : row.string_id, "string" : row.string, 'category_id' : row.category_id, "language_id" : row.language_id, "context": row.context });
     });
 
    
-    fs.writeFile(filename,  JSON.stringify(stringArray), function (err) {
-        if (err) {
-            console.log(err);
-        }else{  
-            console.log('\nStrings has been written to the file stringdata.json\n\n');
-        }    
+    fs.writeFile(filename, JSON.stringify(stringArray), function (err) {
+        if (err) return console.log(err);
+        console.log('\nStrings has been written to the file stringdata.json\n\n');
     });
 }
 
 dumpData('stringdata.json');
+
 ```
 You can generate your serviceAccountKey.json at your firebase-account. 
 
