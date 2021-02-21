@@ -1,6 +1,6 @@
 # vue-steafish
 
-This is a simple plugin that will enable your application having in-context translated text in your application. It will also make it simple to do translation of the texts to other languages.
+This simple plugin will enable your application having in-context translated text in your application. It will also make it simple to do translation of the texts to other languages.
 
 #How does it work?
 
@@ -10,7 +10,7 @@ With a import-statement you can get all of your translations into memory while r
 
 ## While developing
 
-1. Use it as it was a ordinary span-tag. It does not have any styling. This means that you are in control of the styling.  
+1. Use it as it was a ordinary non-blocking-tag (not breaking the line of elements). It does not have any styling. This means that you are in control of the styling.  
 3. Use your server/database for your translations. In the setup you decide where the strings should be recorded. You write the strings in program-code, and your strings will be recorded in the way you specify. Note that the strings will be recorded in the language you specify. This will be your source language
 4. When you are ready, you can translate your strings in your application, just by setting two variables, all of your strings are editable in the language you require
 
