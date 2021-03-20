@@ -1,6 +1,6 @@
 
 <template>
-  <div v-bind:class="{ selected: highlightString }" class="translate">
+  <div :ref="sid" v-bind:class="{ selected: highlightString }" class="translate">
     <span v-if="string">{{ string }}</span>
     <span v-else><slot/></span>
     <span v-if="admin" :title="enString">
