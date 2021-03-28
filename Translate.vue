@@ -42,8 +42,12 @@ export default {
       }
 
       const language_id = this.$getLanguage()??this.$getSourceLanguage();
+      let context = window.location.href;
+      if(context.indexOf('sid=')){
+        context=context.substring(0,context.indexOf('sid=')-1);
+      }
      
-      this.$setString(string, this.sid, this.cid??this.parent, language_id, window.location.href); 
+      this.$setString(string, this.sid, this.cid??this.parent, language_id, context); 
   
       return string
     },
