@@ -2,7 +2,7 @@
 
 This simple plugin will enable your application having in-context translated text in your application. It will also make it simple to do translation of the texts to other languages.
 
-#How does it work?
+# How does it work?
 
 ## In production
 
