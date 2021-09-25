@@ -47,7 +47,7 @@ export default {
         context=context.substring(0,context.indexOf('sid=')-1);
       }
      
-      this.$setString(string, this.sid, this.cid??this.parent, language_id, context); 
+      this.$setString(string, this.sid, this.cid?this.cid:this.parent, language_id, context); 
   
       return string
     },
