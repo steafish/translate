@@ -43,7 +43,7 @@ export default {
 
       const language_id = this.$getLanguage()?this.$getLanguage():this.$getSourceLanguage();
       let context = window.location.href;
-      if(context.indexOf('sid=')){
+      if(context.indexOf('sid=')>0){
         context=context.substring(0,context.indexOf('sid=')-1);
       }
      
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
      updateString(){
-         this.$setString(this.editString, this.sid, this.cid,this.$language_id);
+         this.$setString(this.editString, this.sid, this.cid,this.$language_id, window.location.href);
      },
      getSourceString(){
        if(this.$admin){
