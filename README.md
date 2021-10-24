@@ -45,7 +45,6 @@ If you choose to import string-data from file, you can save your string-data in 
 in main.js you can import it using the following statement (first of all you need to store the strings in the file):
 ```
 import stringArray from "@/assets/stringdata.js";
-import stringArray from "@/assets/firebaseConfig.js";
 ```
 
 The file has the following format:
@@ -53,30 +52,81 @@ The file has the following format:
 [{"string_id":"string-id-for-your-string", "category_id": "front_page_of_app", "string": "Here it is...", "language_id": "en"}]
 ```
 
-### Configuration (Axios)
+### Thre alternative configurations
 
 
-In addition or instead of the import-strings-data-method, you can select to use a database. The setup is very simple. All you need is to do is to do is to tell vue-steafish about the database.
+Your source strings needs to be extracted from your project and stored into a database where it can be accessable for translation. The below will explain three differnt methods for extracting the strings:
+* Using the Steafish translation platform out of the box
+* Create your own plattform using a server and a backend-database
+* Create your own plattform using FireBase. Then you are able to create your own translation plattform on the client-side
+
+
+#### Configuration (steafish.com)
+
+
+The first step in the configuration process is to obtain a api-key. [Register for a Steafish-account here](https://www.steafish.com). After you have logged in, you will be able to obtain your api-key.
+
+Having the api_key you cneed is to do is to do is to tell vue-steafish about the database. In your main.js you need to paste the code below. Before using it in your project you need to change:
+* Project name: Any text will do, but it will be visible to you, your translators and your proof-readers
+* Source language: This will be the source language your translators will use as a source-language when translating
+* Language codes: The list of languages that your language should be translated to. This can be changed in the dashboard after you have loaded the strings in the steafish-application
+* API key: After registering and logged into the application you can obtain your API key 
+
+
+```
+
+Vue.use(VueTranslate, {
+  getString: () => {
+    return null;
+  },
+             
+  setString: (string, string_id, category_id, language_id, context) => {
+    if (string && string_id && process.env.NODE_ENV=='development') { 
+      let stringObj = {
+        string_id: string_id,
+        language_id: language_id,
+        string: string,
+        context:context,
+        project_name: 'Test project',     //TODO: Enter the name of your project
+        src_language:'en',                //TODO: Enter the source language for your project
+        language_ids : ['es', 'nl', 'da'] //TODO: Language codes to be translated to (valid languaage codes can be found here: https://cloud.google.com/translate/docs/languages)
+      };
+      if (category_id) {
+        stringObj.category_id = category_id;
+      }
+      
+      //TODO: Register at https://www.steafish.com to obtain api_key, and paste it in below
+      const apikey = '******************************************************';
+      //
+
+      axios.defaults.withCredentials = true;
+      const url = '/api/string';
+      axios.post(url, stringObj, {headers : { Authorization : 'Bearer ' + apikey}}).then((result) => {
+          console.log("String: ", result);
+      });  
+    }
+  },
+  getSourceLanguage: () => {
+    return "en";
+  },
+  getLanguage: () => {
+    return "en";
+  },
+});
+
+....
+
+```
+#### Configuration (Axios)
+
+
+In addition or instead of the import-strings-data-method, you can select to use your own database. The setup is very simple. All you need is to do is to do is to tell vue-steafish about your database.
 
 In your main.js you will have defined the installed the database and configured the database in main.js:
 ```
 import VueTranslate from 'vue-steafish'
 import stringData from '@/assets/stringdata.json'
 
-
-
-
-firebase.initializeApp(firebaseConfig)
-
-export const db = firebase.firestore()
-const auth = firebase.auth()
-const currentUser = auth.currentUser
-
-// date issue fix according to firebase
-const settings = {
-    //...
-}
-db.settings(settings)
 
 Vue.use(VueTranslate,{
   getString: (string_id, category_id, language_id) =>
@@ -121,7 +171,7 @@ Vue.use(VueTranslate,{
 });
 ```
 
-### Configuration (Firefox)
+#### Configuration (Firefox)
 
 
 In addition or instead of the import-strings-data-method, you can select to use a database. The setup is very simple. All you need is to do is to do is to tell vue-steafish about the database.
