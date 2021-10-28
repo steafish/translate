@@ -66,7 +66,7 @@ Your source strings needs to be extracted from your project and stored into a da
 
 The first step in the configuration process is to obtain a api-key. [Register for a Steafish-account here](https://www.steafish.com). After you have logged in, you will be able to obtain your api-key.
 
-Having the api_key you cneed is to do is to do is to tell vue-steafish about the database. In your main.js you need to paste the code below. Before using it in your project you need to change:
+Having the api_key you need is to do is to do is to tell vue-steafish about the database. In your main.js you need to paste the code below. Before using it in your project you need to change:
 * Project name: Any text will do, but it will be visible to you, your translators and your proof-readers
 * Source language: This will be the source language your translators will use as a source-language when translating
 * Language codes: The list of languages that your language should be translated to. This can be changed in the dashboard after you have loaded the strings in the steafish-application
