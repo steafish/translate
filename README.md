@@ -2,7 +2,9 @@
 
 This simple plugin will enable your application having in-context translated text in your application. It will also make it simple to do translation of the texts to other languages.
 
+
 # How does it work?
+[The documentation is also available at](https://www.steafish.com/#/documentation/client)
 
 ## In production
 
@@ -116,6 +118,23 @@ Vue.use(VueTranslate, {
 
 ....
 
+```
+##### Webhooks
+When the translator or the previewer presses "Translation done" or "Preview done" a webhook is triggered, where a post is sent to the address that you specify.This means that your can create a function in your system that should start downloading the strings from Steafish when the translation is done.
+
+##### Get all strings
+At any point in time you can get your strings at the following address:
+```
+const url = 'http://www.steafish.com/api/allstrings';
+const api_key = '*****GET YOUR KEY FROM THE ADMIN USER WHEN LOGGED INTO STEAFISH ********';
+let props = {
+    headers:{
+        Authorization : 'Bearer '+api_key
+    }
+};
+axios.get(url, props).then((result) => {
+  console.log("Result: ", result);
+});  
 ```
 #### Configuration (Axios)
 
