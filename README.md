@@ -6,6 +6,71 @@ This simple plugin will enable your application having in-context translated tex
 # How does it work?
 [The documentation is also available at](https://www.steafish.com/#/documentation/client)
 
+## In your components
+
+Use the tag <translation></translate> in your components in the follwing way:
+```
+<template>
+...
+<translate cid="optional-category" sid="string-id-for-your-string">String that will be visible</translate>
+...
+</template>
+```
+(the cid-attribute is a optional).
+
+### What attributes do I need?
+
+If you do not use any parameters like the following:
+```
+<translate>I really like Vue</translate>
+```
+The string will still show, but it will not find its way into your storage. You are required to add the sid like the following:
+ ```
+<translate sid="i_like_vue">I really like Vue</translate>
+```
+However to collect your strings into a group, you should use category_id. The collection could be a modal, a component, view or a route. You are the best to say what strings that belongs together. However, context is an important factor when talking about translations.
+
+One word could mean different things in different context. That is why you should group your strings accoring to its context. A context could be hierarchical, and that is a good reason for creating a naming-standard for your string-ids and category-ids. A category could be customer-configuration, then the strings belonging to that category is in the same context.
+
+When translators understands the context there is a very high propability that the translation will be correct according to the context. Then it becomes important for you to make it easy to understand the context. This is why there should be a one-to-one between context and a visible view to the user. Then there should be a one-to-one-relationship between you vue-route and your context.
+
+### Special cases
+
+In somecases you would have a sting that looks like this
+```
+"In many places January is {summer_or_winter}"
+```
+
+Using the tag above will not do a correct translation. Do the following:
+
+```
+<template>
+    <div>{{this.placesInJanuary()}}</div>
+</template>
+<script>
+...
+
+computed(){
+    placesInJanuary(){
+        const string = this.$getMessage('In many places January is {summer_or_winter}', 'string-id-for-your-string', 'optional-category', this.$getLanguage());
+        const summer = this.$getMessage('summer', 'string-id-for-summer', this.$getLanguage());
+        const winter = this.$getMessage('winter', 'string-id-for-winter', this.$getLanguage());
+        if(southernHemisphere(this.$getLanguage()))
+            return string.replace('{summer_or_winter}',summer);
+        else{
+            return string.replace('{summer_or_winter}',winter);
+        }    
+    }    
+}
+</script>
+```
+In some cases the translate tag cannot be used. In these cases we can use a computed variable or use the this.$getMessage(...) directly. The this.$getMessage(...) string "In many places January is {summer_or_winter}". In return it will give the translated string if that exsists. We do the same for the translation for both summer and winter. Depending upon if the language stems from countries at the southers hemisphere or not, the translated string is returned, where the correct season is returned.
+
+From the above we can conclude that there is a good idea to use a language-code that includes the country-code, like this:
+```
+    language = languageCode + '-' + countryCode;
+```
+
 ## In production
 
 With a import-statement you can get all of your translations into memory while running in production environment. If you do not like that you can read it from Firebase or your own server. You decide the location of your strings.
@@ -297,70 +362,7 @@ methods: {
 
 ```
 
-# In your components
 
-Use the tag <translation></translate> in your components in the follwing way:
-```
-<template>
-...
-<translate cid="optional-category" sid="string-id-for-your-string">String that will be visible</translate>
-...
-</template>
-```
-(the cid-attribute is a optional).
-
-## What attributes do I need?
-
-If you do not use any parameters like the following:
-```
-<translate>I really like Vue</translate>
-```
-The string will still show, but it will not find its way into your storage. You are required to add the sid like the following:
- ```
-<translate sid="i_like_vue">I really like Vue</translate>
-```
-However to collect your strings into a group, you should use category_id. The collection could be a modal, a component, view or a route. You are the best to say what strings that belongs together. However, context is an important factor when talking about translations. 
-
-One word could mean different things in different context. That is why you should group your strings accoring to its context. A context could be hierarchical, and that is a good reason for creating a naming-standard for your string-ids and category-ids. A category could be customer-configuration, then the strings belonging to that category is in the same context. 
-
-When translators understands the context there is a very high propability that the translation will be correct according to the context. Then it becomes important for you to make it easy to understand the context. This is why there should be a one-to-one between context and a visible view to the user. Then there should be a one-to-one-relationship between you vue-route and your context.
-
-## Special cases
-
-In somecases you would have a sting that looks like this
-```
-"In many places January is {summer_or_winter}"
-```
-
-Using the tag above will not do a correct translation. Do the following:
-
-```
-<template>
-    <div>{{this.placesInJanuary()}}</div>
-</template>
-<script>
-...
-
-computed(){
-    placesInJanuary(){
-        const string = this.$getMessage('In many places January is {summer_or_winter}', 'string-id-for-your-string', 'optional-category', this.$getLanguage());
-        const summer = this.$getMessage('summer', 'string-id-for-summer', this.$getLanguage());
-        const winter = this.$getMessage('winter', 'string-id-for-winter', this.$getLanguage());
-        if(southernHemisphere(this.$getLanguage()))
-            return string.replace('{summer_or_winter}',summer);
-        else{
-            return string.replace('{summer_or_winter}',winter);
-        }    
-    }    
-}
-</script>
-```
-In some cases the translate tag cannot be used. In these cases we can use a computed variable or use the this.$getMessage(...) directly. The this.$getMessage(...) string "In many places January is {summer_or_winter}". In return it will give the translated string if that exsists. We do the same for the translation for both summer and winter. Depending upon if the language stems from countries at the southers hemisphere or not, the translated string is returned, where the correct season is returned. 
-
-From the above we can conclude that there is a good idea to use a language-code that includes the country-code, like this:
-```
-    language = languageCode + '-' + countryCode;
-```
 
 # Exporting the string-data from firebase to the asset-file
 
