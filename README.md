@@ -28,11 +28,6 @@ The string will still show, but it will not find its way into your storage. You 
  ```
 <translate sid="i_like_vue">I really like Vue</translate>
 ```
-However to collect your strings into a group, you should use category_id. The collection could be a modal, a component, view or a route. You are the best to say what strings that belongs together. However, context is an important factor when talking about translations.
-
-One word could mean different things in different context. That is why you should group your strings accoring to its context. A context could be hierarchical, and that is a good reason for creating a naming-standard for your string-ids and category-ids. A category could be customer-configuration, then the strings belonging to that category is in the same context.
-
-When translators understands the context there is a very high propability that the translation will be correct according to the context. Then it becomes important for you to make it easy to understand the context. This is why there should be a one-to-one between context and a visible view to the user. Then there should be a one-to-one-relationship between you vue-route and your context.
 
 ### Special cases
 
