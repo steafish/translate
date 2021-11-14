@@ -4,7 +4,7 @@ This simple plugin will enable your application having in-context translated tex
 
 
 # How does it work?
-[The documentation is also available at](https://www.steafish.com/#/documentation/client)
+[This documentation is also available at www.steafish.com](https://www.steafish.com/#/documentation/client). The site offers a free web based application for translate your text in context.  
 
 ## In your components
 
