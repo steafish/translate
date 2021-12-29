@@ -1,8 +1,8 @@
 {
   "name": "vue-steafish",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
-  "description": "Use a json-array for your translation-objects, and refer to the string-ids in this translate-tag. Please see documentation",
+  "description": "Context is everything when translating text. In steafish.com you will have an iframe into your application when translating. Use a json-array for your translation-objects, and refer to the string-ids in this translate-tag. Please see documentation",
   "author": "Steafish",
   "license": "MIT",
   "bugs": {

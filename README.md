@@ -4,7 +4,7 @@ This simple plugin will enable your application having in-context translated tex
 
 
 # How does it work?
-[This documentation is also available at www.steafish.com](https://www.steafish.com/#/documentation/client). The site offers a free web based application for translate your text in context.  
+[This documentation is also available at www.steafish.com](https://www.steafish.com/#/documentation). The site offers a free web based application for translate your text in context.  
 
 ## In your components
 
@@ -196,144 +196,6 @@ axios.get(url, props).then((result) => {
   console.log("Result: ", result);
 });  
 ```
-#### Configuration (Axios)
-
-
-In addition or instead of the import-strings-data-method, you can select to use your own database. The setup is very simple. All you need is to do is to do is to tell vue-steafish about your database.
-
-In your main.js you will have defined the installed the database and configured the database in main.js:
-```
-import VueTranslate from 'vue-steafish'
-import stringData from '@/assets/stringdata.json'
-
-
-Vue.use(VueTranslate,{
-  getString: (string_id, category_id, language_id) =>
-   { 
-    let string=null;
-    if (stringData != null && string_id != null) {
-      const stringObj = stringData.find(
-        (o) => o.string_id === string_id && (o.category_id=== category_id || category_id==null ) && (o.language_id === language_id)
-      )
-      if (stringObj != null) {
-        string = stringObj.string
-      }
-    }
-    return string;
-   },
-  setString: (string, string_id, category_id, language_id) => { 
-      if(string && string_id){
-          let stringObj = {
-              "string_id" : string_id, 
-              "language_id": language_id,
-              "string" : string
-          };
-        
-          if(category_id){
-            stringObj.category_id = category_id;
-          }  
-    
-          axios.post('url-to-your-server', stringObj)
-               .then(response => {
-                  console.log(response);
-               }).catch(error => {
-                  console.log(error)
-               });
-      }    
-  },
-  getSourceLanguage:() => {
-    return 'en';
-  },
-  getLanguage:() => {
-    return 'en';
-  },
-});
-```
-
-#### Configuration (Firefox)
-
-
-In addition or instead of the import-strings-data-method, you can select to use a database. The setup is very simple. All you need is to do is to do is to tell vue-steafish about the database.
-
-Save the following to assets/firebaseConfig.js in your project, where you replace the values with the value for your firebase configuration:
-```
-{
-    "apiKey": " ...",
-    "authDomain": " ... ",
-    "databaseURL": " ...",
-    "projectId": " ....",
-    "storageBucket": " ....",
-    "messagingSenderId": " ... ",
-    "appId": " ... "
-  };
-```
-
-In your main.js you will have defined the installed the database and configured the database in main.js:
-```
-import firebase from 'firebase'
-import VueTranslate from 'vue-steafish'
-import stringData from '@/assets/stringdata.json'
-import firebaseConfig from '@assets/firebaseconfig.json'
-
-
-firebase.initializeApp(firebaseConfig)
-
-export const db = firebase.firestore()
-const auth = firebase.auth()
-const currentUser = auth.currentUser
-
-// date issue fix according to firebase
-const settings = {
-    //...
-}
-db.settings(settings)
-
-Vue.use(VueTranslate,{
-  getString: (string_id, category_id, language_id) =>
-   { 
-    let string=null;
-    if (stringData != null && string_id != null) {
-      const stringObj = stringData.find(
-        (o) => o.string_id === string_id && (o.category_id=== category_id || category_id==null ) && (o.language_id === language_id)
-      )
-      if (stringObj != null) {
-        string = stringObj.string
-      }
-    }
-    return string;
-   },
-  setString: (string, string_id, category_id, language_id, context) => { 
-      if(string && string_id){
-          let stringObj = {
-              "string_id" : string_id, 
-              "language_id": language_id,
-              "string" : string
-          };
-        
-          if(category_id){
-              stringObj.category_id = category_id;
-          }  
-
-          if(context){
-              stringObj.context = context;
-          }
-    
-          db.collection("steafish_string_table").doc(string_id).set(stringObj).then(() => {
-            console.log("String-id: "+string_id+" successfully written!");
-          }).catch((error) => {
-            console.error("Error writing document: ", error);
-          });
-      }    
-  },
-  getSourceLanguage:() => {
-    return 'en';
-  },
-  getLanguage:() => {
-    return 'en';
-  },
-});
-```
-Remember to give read/write-access to the firebase-database-table 
 
 ## Setting the language
 
@@ -356,45 +218,6 @@ methods: {
 }    
 
 ```
-
-
-
-# Exporting the string-data from firebase to the asset-file
-
-While developing your database will contain all of your strings. Before building for deployment, you will ned to remove the firebase-statements from the vue-steafish uses-statement. In addition you will ned to export the data into the file that needs to be added to assets in your project. 
-
-Here is some example nodejs code that you can use for exporting data:
-```
-async function dumpData(filename) {
-    const serviceAccount = require("./serviceAccountKey.json");
-    const admin = require('firebase-admin');
-    const fs = require('fs');
-
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount)
-    });
-
-    let stringArray = [];
-    const db = admin.firestore();
-    const snapshot = await db.collection('steafish_string_table').get();
-    snapshot.forEach((doc) => {
-        const row = doc.data();
-        //console.log(row.string_id+' '+row.string);
-        stringArray.push({"string_id" : row.string_id, "string" : row.string, 'category_id' : row.category_id, "language_id" : row.language_id, "context": row.context });
-    });
-
-   
-    fs.writeFile(filename, JSON.stringify(stringArray), function (err) {
-        if (err) return console.log(err);
-        console.log('\nStrings has been written to the file stringdata.json\n\n');
-    });
-}
-
-dumpData('stringdata.json');
-
-```
-You can generate your serviceAccountKey.json at your firebase-account. 
-
 
 # Start translating your application
 
