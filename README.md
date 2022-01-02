@@ -162,7 +162,7 @@ Vue.use(VueTranslate, {
       //
 
       axios.defaults.withCredentials = true;
-      const url = '/api/string';
+      const url = 'https://www.steafish.com/api/string';
       axios.post(url, stringObj, {headers : { Authorization : 'Bearer ' + apikey}}).then((result) => {
           console.log("String: ", result);
       });  
